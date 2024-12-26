@@ -70,7 +70,10 @@ func main() {
 	//var win fyne.Window
 	app := app.NewWithID(" 你好！")
 
-	icon, _ := fyne.LoadResourceFromPath("Icon.png")
+	icon, err := fyne.LoadResourceFromPath("Icon-n2ew.png")
+	if err != nil {
+		icon = theme.HomeIcon()
+	}
 
 	app.SetIcon(icon)
 
