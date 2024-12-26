@@ -1,0 +1,7 @@
+#!/bin/bash
+#GOOS=windows GOARCH=amd64 CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++  go build -ldflags='-s -w' 
+#--extldflags="-static -fpic" 
+#GOOS=windows GOARCH=amd64 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ go build 
+#-ldflags="-s -w -H windowsgui"
+CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ fyne package --os windows
+#GOOS=windows GOARCH=amd64  CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ fyne package --os windows --icon Icon.png  --appID=1.0 
