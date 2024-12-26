@@ -29,7 +29,7 @@ type Iot struct {
 	CID    string
 }
 
-func (me *Iot) value(c int) interface{} {
+func (me *Iot) Set(c int) interface{} {
 	switch c {
 	case 0:
 		return me.Id
