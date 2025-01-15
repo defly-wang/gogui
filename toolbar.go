@@ -18,8 +18,8 @@ func Toolbar(win fyne.Window) *widget.Toolbar {
 
 	})
 	new := widget.NewToolbarAction(theme.FolderNewIcon(), func() {
-		boy := Body{Name: "ASD", Age: 10}
-		bodys = append(bodys, &boy)
+		//boy := Body{Name: "ASD", Age: 10}
+		//bodys = append(bodys, &boy)
 
 	})
 
@@ -30,7 +30,7 @@ func Toolbar(win fyne.Window) *widget.Toolbar {
 		dialog.NewConfirm("提示", "你是否要退出！", func(b bool) {
 			fmt.Println(b)
 			if b {
-				win.Hide()
+				//win.Close()
 			}
 		}, win).Show()
 	})
