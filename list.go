@@ -9,14 +9,14 @@ import (
 )
 
 func List() *widget.Table {
-	iots, _ := fetchLatestIotData()
+	//iots, _ := fetchLatestIotData()
 
 	list := widget.NewTableWithHeaders(func() (rows int, cols int) {
-		return len(iots), 5
+		return len(IotData), 5
 	}, func() fyne.CanvasObject {
 		return widget.NewLabel("                  ")
 	}, func(tci widget.TableCellID, co fyne.CanvasObject) {
-		co.(*widget.Label).SetText(fmt.Sprint(iots[tci.Row].ValueOf(tci.Col)))
+		co.(*widget.Label).SetText(fmt.Sprint(IotData[tci.Row].ValueOf(tci.Col)))
 	})
 
 	columns := []string{"Id", "时间", "数值", "偏移", "CID"}
@@ -28,7 +28,13 @@ func List() *widget.Table {
 			template.(*widget.Label).SetText(strconv.Itoa(id.Row + 1))
 		}
 	}
+
+	// list.Bind(iots)
+
 	list.SetColumnWidth(1, 200)
+	//list.UpdateCell
+	//list.Refresh()
+	//list.UpdateHeader()
 
 	list.OnSelected = func(id widget.TableCellID) {
 		fmt.Println("Selected", id)

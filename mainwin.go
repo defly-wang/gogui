@@ -36,9 +36,9 @@ func MainWindow(app fyne.App) fyne.Window {
 	win.Resize(fyne.NewSize(800, 600))
 
 	clock := widget.NewLabel("")
-	top := Toolbar(win)
-	list := List()
 
+	list := List()
+	top := Toolbar(win, list)
 	context := container.NewBorder(top, clock, nil, nil, list)
 	win.SetContent(context)
 

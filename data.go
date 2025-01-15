@@ -8,6 +8,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+var IotData = []Iot{}
+
 type Iot struct {
 	Id     int64
 	Time   time.Time
@@ -32,38 +34,40 @@ func (me *Iot) ValueOf(c int) interface{} {
 	return ""
 }
 
-func fetchLatestIotData() ([]Iot, error) {
+func fetchLatestIotData() error {
 
 	db, err := OpenDb()
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer db.Close()
 
-	query := "SELECT id, time, value, offset, cid FROM test ORDER BY time DESC LIMIT 100"
+	query := "SELECT id, time, value, offset, cid FROM test ORDER BY time DESC LIMIT 10"
 	rows, err := db.Query(query)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer rows.Close()
 
-	var iots []Iot
+	//var iots []Iot
+	IotData = []Iot{}
+
 	for rows.Next() {
 		var iot Iot
 		var timeStr string
 		if err := rows.Scan(&iot.Id, &timeStr, &iot.Value, &iot.Offset, &iot.CID); err != nil {
-			return nil, err
+			return err
 		}
 		iot.Time, err = time.Parse("2006-01-02 15:04:05", timeStr)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		iots = append(iots, iot)
+		IotData = append(IotData, iot)
 	}
 	if err := rows.Err(); err != nil {
-		return nil, err
+		return err
 	}
-	return iots, nil
+	return nil
 }
 
 func OpenDb() (*sql.DB, error) {

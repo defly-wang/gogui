@@ -9,12 +9,27 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func Toolbar(win fyne.Window) *widget.Toolbar {
+func getList(parent fyne.CanvasObject) {
+	if container, ok := parent.(*fyne.Container); ok {
+		for _, child := range container.Objects {
+			fmt.Println(child)
+		}
+	} else {
+		fmt.Println("The parent is not a container")
+	}
+}
+
+func Toolbar(win fyne.Window, list *widget.Table) *widget.Toolbar {
 	open := widget.NewToolbarAction(theme.FolderOpenIcon(), func() {
 		//dialog.NewError(errors.New("发现错误，请清除！"), win).Show()
 		//dialog.NewConfirm("提示", "提示信息", nil, win).Show()
 
 		dialog.NewInformation("提示", "提示信息-------------------", win).Show()
+		//getList(win.Content())
+
+		fetchLatestIotData()
+
+		list.Refresh()
 
 	})
 	new := widget.NewToolbarAction(theme.FolderNewIcon(), func() {
