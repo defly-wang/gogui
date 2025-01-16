@@ -8,6 +8,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+const (
+	//数据库连接信息
+	DSN     = "root:123456@tcp(192.168.1.128:3306)/test"
+	ReadSql = "SELECT id, time, value, offset, cid FROM test ORDER BY time DESC LIMIT 10"
+)
+
 var IotData = []Iot{}
 
 type Iot struct {
@@ -42,7 +48,7 @@ func fetchLatestIotData() error {
 	}
 	defer db.Close()
 
-	query := "SELECT id, time, value, offset, cid FROM test ORDER BY time DESC LIMIT 10"
+	query := ReadSql
 	rows, err := db.Query(query)
 	if err != nil {
 		return err
@@ -72,7 +78,7 @@ func fetchLatestIotData() error {
 
 func OpenDb() (*sql.DB, error) {
 
-	dsn := "root:123456@tcp(192.168.1.128:3306)/test"
+	dsn := DSN
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		fmt.Println("Error opening database:", err)

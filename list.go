@@ -8,6 +8,14 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+type ListStruct struct {
+	Own widget.Table
+}
+
+func (l *ListStruct) Refresh() {
+	l.Own.Refresh()
+}
+
 func List() *widget.Table {
 	//iots, _ := fetchLatestIotData()
 

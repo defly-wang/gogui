@@ -37,22 +37,34 @@ func MainWindow(app fyne.App) fyne.Window {
 
 	clock := widget.NewLabel("")
 
+	//fetchLatestIotData()
 	list := List()
 	top := Toolbar(win, list)
 	context := container.NewBorder(top, clock, nil, nil, list)
 	win.SetContent(context)
 
+	updateList(list)
+
 	go func() {
 		for range time.Tick(time.Second) {
 			updateTime(clock)
-			//fmt.Println(win.Content().Visible())
-
 		}
 
 	}()
 
+	go func() {
+		for range time.Tick(time.Second * 5) {
+			updateList(list)
+		}
+	}()
+
 	return win
 
+}
+
+func updateList(list *widget.Table) {
+	fetchLatestIotData()
+	list.Refresh()
 }
 
 func updateTime(clock *widget.Label) {
